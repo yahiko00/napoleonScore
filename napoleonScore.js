@@ -1,3 +1,7 @@
+// ***************************
+// Author: yahiko, 2013-12-31
+// ***************************
+
 function taxProvince(provinces, id) {
   for (var i=0; i < provinces.length; i++) {
     var province = provinces[i];
