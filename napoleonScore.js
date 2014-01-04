@@ -1,5 +1,6 @@
 // ***************************
 // Author: yahiko, 2013-12-31
+// update: ironman compatibility
 // ***************************
 
 function taxProvince(provinces, id) {
@@ -39,10 +40,18 @@ function handleFileSelect(evt) {
     var owner = "";
     var controller = "";
     var score = 0;
+    var ironman = "";
 
     index = index = contents.indexOf('player=', index);
     country = contents.substr(index + 8, 3);
     document.getElementById('country').innerHTML = '<strong>' + country + '</strong>';
+    
+    if (contents.substr(0, 6) == 'EU4bin') {
+      document.getElementById('ironman').innerHTML = 'oui (yes)';
+    }
+    else {
+      document.getElementById('ironman').innerHTML = 'non (no)';
+    }
 
     for (var i=0; i < provincesEurope.length; i++) {
       var province = provincesEurope[i];
