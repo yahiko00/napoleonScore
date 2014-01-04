@@ -51,28 +51,29 @@ function handleFileSelect(evt) {
     }
     else {
       document.getElementById('ironman').innerHTML = 'non (no)';
-    }
 
-    for (var i=0; i < provincesEurope.length; i++) {
-      var province = provincesEurope[i];
+      for (var i=0; i < provincesEurope.length; i++) {
+        var province = provincesEurope[i];
 
-      index = contents.indexOf('\r\n-' + province.id + '=\r\n', index);
-      index = contents.indexOf('owner=', index);
-      owner = contents.substr(index + 7, 3);
-      index = contents.indexOf('controller=', index);
-      controller = contents.substr(index + 12, 3);
+        index = contents.indexOf('\r\n-' + province.id + '=\r\n', index);
+        index = contents.indexOf('owner=', index);
+        owner = contents.substr(index + 7, 3);
+        index = contents.indexOf('controller=', index);
+        controller = contents.substr(index + 12, 3);
 
-      if (owner == country && controller == country) {
-        score += taxProvince(provincesEurope, province.id);
+        if (owner == country && controller == country) {
+          score += taxProvince(provincesEurope, province.id);
+        }
       }
+      
+      scorePercent = 100 * score / total;
+      scorePercent = scorePercent.toFixed(2) + ' %';
+      document.getElementById('score').innerHTML = '<strong>' + score + ' pts (' + scorePercent + ')</strong>';
     }
-    
-    scorePercent = 100 * score / total;
-    scorePercent = scorePercent.toFixed(2) + ' %';
-    document.getElementById('score').innerHTML = '<strong>' + score + ' pts (' + scorePercent + ')</strong>';
   };
 
-  reader.readAsText(savefile, 'ISO-8859-1');
+  //reader.readAsText(savefile, 'ISO-8859-1');
+  reader.readAsBinaryString(savefile);
 
   // files is a FileList of File objects. List some properties.
   var output = [];
