@@ -47,7 +47,7 @@ function handleFileSelect(evt) {
     if (contents.substr(0, 6) == 'EU4bin') {
       document.getElementById('ironman').innerHTML = 'oui (yes)';
       
-      country = contents.substr(index + 24, 3);
+      country = contents.substr(index + 25, 3);
       document.getElementById('country').innerHTML = '<strong>' + country + '</strong>';
 
       var baseValue = 0xffffffff;
