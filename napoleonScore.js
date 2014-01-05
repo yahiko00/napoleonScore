@@ -48,6 +48,38 @@ function handleFileSelect(evt) {
     
     if (contents.substr(0, 6) == 'EU4bin') {
       document.getElementById('ironman').innerHTML = 'oui (yes)';
+      
+      var baseValue = 0xffffffff;
+      
+      for (var i=0; i < provincesEurope.length; i++) {
+        var province = provincesEurope[i];
+        
+        var lookUp = baseValue - province.id + 1;
+        lookUp = lookUp.toString(16);
+        lookUp = String.fromCharCode(parseInt(lookUp.substr(6, 2), 16),
+                                     parseInt(lookUp.substr(4, 2), 16),
+                                     parseInt(lookUp.substr(2, 2), 16),
+                                     parseInt(lookUp.substr(0, 2), 16)); // little endian
+        
+        index = contents.indexOf(lookUp, index);
+        lookUp = '2801000F000300';
+        lookUp = String.fromCharCode(parseInt(lookUp.substr(0, 2), 16),
+                                     parseInt(lookUp.substr(2, 2), 16),
+                                     parseInt(lookUp.substr(4, 2), 16),
+                                     parseInt(lookUp.substr(6, 2), 16),
+                                     parseInt(lookUp.substr(8, 2), 16),
+                                     parseInt(lookUp.substr(10, 2), 16),
+                                     parseInt(lookUp.substr(12, 2), 16));
+        index = contents.indexOf(lookUp, index);
+        owner = contents.substr(index + 7, 3);
+        index += 7;
+        index = contents.indexOf(lookUp, index);
+        controller = contents.substr(index + 7, 3);
+
+        if (owner == country && controller == country) {
+          score += taxProvince(provincesEurope, province.id);
+        }
+      }
     }
     else {
       document.getElementById('ironman').innerHTML = 'non (no)';
@@ -58,6 +90,7 @@ function handleFileSelect(evt) {
         index = contents.indexOf('\r\n-' + province.id + '=\r\n', index);
         index = contents.indexOf('owner=', index);
         owner = contents.substr(index + 7, 3);
+        index += 7;
         index = contents.indexOf('controller=', index);
         controller = contents.substr(index + 12, 3);
 
