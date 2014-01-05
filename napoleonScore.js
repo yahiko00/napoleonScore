@@ -82,7 +82,7 @@ function handleFileSelect(evt) {
         }
       }
     }
-    else {
+    else { // ironman = no
       document.getElementById('ironman').innerHTML = 'non (no)';
       
       country = contents.substr(index + 8, 3);
@@ -102,11 +102,11 @@ function handleFileSelect(evt) {
           score += taxProvince(provincesEurope, province.id);
         }
       }
-      
-      scorePercent = 100 * score / total;
-      scorePercent = scorePercent.toFixed(2) + ' %';
-      document.getElementById('score').innerHTML = '<strong>' + score + ' pts (' + scorePercent + ')</strong>';
     }
+
+    scorePercent = 100 * score / total;
+    scorePercent = scorePercent.toFixed(2) + ' %';
+    document.getElementById('score').innerHTML = '<strong>' + score + ' pts (' + scorePercent + ')</strong>';
   };
 
   //reader.readAsText(savefile, 'ISO-8859-1');
