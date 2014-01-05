@@ -43,12 +43,13 @@ function handleFileSelect(evt) {
     var ironman = "";
 
     index = index = contents.indexOf('player=', index);
-    country = contents.substr(index + 8, 3);
-    document.getElementById('country').innerHTML = '<strong>' + country + '</strong>';
     
     if (contents.substr(0, 6) == 'EU4bin') {
       document.getElementById('ironman').innerHTML = 'oui (yes)';
       
+      country = contents.substr(index + 18, 3);
+      document.getElementById('country').innerHTML = '<strong>' + country + '</strong>';
+
       var baseValue = 0xffffffff;
       
       for (var i=0; i < provincesEurope.length; i++) {
@@ -83,6 +84,9 @@ function handleFileSelect(evt) {
     }
     else {
       document.getElementById('ironman').innerHTML = 'non (no)';
+      
+      country = contents.substr(index + 8, 3);
+      document.getElementById('country').innerHTML = '<strong>' + country + '</strong>';
 
       for (var i=0; i < provincesEurope.length; i++) {
         var province = provincesEurope[i];
@@ -111,7 +115,7 @@ function handleFileSelect(evt) {
   // files is a FileList of File objects. List some properties.
   var output = [];
   document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
-}
+} // handleFileSelect
 
 var provincesEurope = [
   {id: 1, tax: 5},
